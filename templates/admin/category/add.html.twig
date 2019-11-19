@@ -1,0 +1,21 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title 'Categorie - Ajout' %}
+
+{% block content %}
+
+    <h1>Ajouter une catégorie</h1>
+    {{ include('admin/category/form.html.twig',{btn: "Ajouter"}) }}
+
+{% endblock %}
+
+{% block category %}
+    <li class="active">
+        <a href="#dropcoll" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Catégories</a>
+        <ul class="collapse show list-unstyled" id="dropcoll">
+            <li class="active">
+                <a href="{{ path('admin.category.add') }}">Ajouter</a>
+            </li>
+        </ul>
+    </li>
+{% endblock %}

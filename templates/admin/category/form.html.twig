@@ -1,0 +1,9 @@
+<div class="mt-4">
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="btn-group w-50">
+        <button class="btn btn-primary w-25">{{ btn|default("Enregistrer") }}</button>
+        <a href="{{ path('admin.category.index') }}" class="btn btn-danger w-25">Annuler</a>
+    </div>
+    {{ form_end(form) }}
+</div>

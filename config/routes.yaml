@@ -1,0 +1,73 @@
+home:
+  path: /
+  controller: App\Controller\HomeController::index
+
+login:
+  path: /login
+  controller: App\Controller\SecurityController::login
+
+register:
+  path: /register
+  controller: App\Controller\SecurityController::register
+
+logout:
+  path: /logout
+
+category:
+  path: /{slug}-{id}
+  requirements: {"slug": "[a-z0-9-]*"}
+  controller: App\Controller\CategoryController::index
+
+subcategory:
+  path: /subcategory/{slug}-{id}
+  requirements: {"slug": "[a-z0-9-]*"}
+  controller: App\Controller\SubCategoryController::index
+
+topic:
+  path: /topic/{slug}-{id}
+  requirements: {"slug": "[a-z0-9-]*"}
+  controller: App\Controller\TopicController::index
+
+admin.index:
+  path: /admin
+  controller: App\Controller\Admin\AdminController::index
+
+admin.category.index:
+  path: /admin/category
+  controller: App\Controller\Admin\AdminCategoryController::index
+
+admin.category.edit:
+  path: /admin/category/{id}
+  requirements: {"id": "[0-9]+"}
+  controller: App\Controller\Admin\AdminCategoryController::edit
+  methods: "GET|POST"
+
+admin.category.add:
+  path: /admin/category/add
+  controller: App\Controller\Admin\AdminCategoryController::add
+
+admin.category.delete:
+  path: /admin/category/{id}
+  requirements: {"id": "[0-9]+"}
+  controller: App\Controller\Admin\AdminCategoryController::delete
+  methods: "DELETE"
+
+admin.subcategory.index:
+  path: /admin/subcategory
+  controller: App\Controller\Admin\AdminSubCategoryController::index
+
+admin.subcategory.edit:
+  path: /admin/subcategory/{id}
+  requirements: {"id": "[0-9]+"}
+  controller: App\Controller\Admin\AdminSubCategoryController::edit
+  methods: "GET|POST"
+
+admin.subcategory.add:
+  path: /admin/subcategory/add
+  controller: App\Controller\Admin\AdminSubCategoryController::add
+
+admin.subcategory.delete:
+  path: /admin/subcategory/{id}
+  requirements: {"id": "[0-9]+"}
+  controller: App\Controller\Admin\AdminSubCategoryController::delete
+  methods: "DELETE"

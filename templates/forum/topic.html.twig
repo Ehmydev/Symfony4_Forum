@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Forum - {{ topic.title }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-5 mb-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('home') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ path('category', {id: topic.subcategory.category.id, slug: topic.subcategory.category.slug}) }}">{{ topic.subcategory.category.name }}</a></li>
+                <li class="breadcrumb-item"><a href="{{ path('subcategory', {id: topic.subcategory.id, slug: topic.subcategory.slug}) }}">{{ topic.subcategory.name }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ topic.title }}</li>
+            </ol>
+        </nav>
+        <div class="pagination">
+            {{ knp_pagination_render(messages) }}
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                <tr class="align-middle">
+                    <th>Auteur</th>
+                    <th style="max-width: 80%; min-width: 75%;"><a href="{{ path('topic', {id: topic.id, slug: topic.slug}) }}">{{ topic.title }}</a></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if app.request.get('page')==null or app.request.get('page')==1 %}
+                    <tr>
+                        <td>{{ topic.user.login }}</td>
+                        <td>
+                            Le {{ topic.createdat|date("d M Y à H:i:s") }}
+                            <hr>
+                            {{ topic.message | nl2br }}
+                        </td>
+                    </tr>
+                {% endif %}
+                {% for msg in messages %}
+                    <tr>
+                        <td>{{ msg.user.login }}</td>
+                        <td>
+                            Le {{ msg.createdat|date("d M Y à H:i:s") }}
+                            <hr>
+                            {{ msg.message | nl2br }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="pagination">
+            {{ knp_pagination_render(messages) }}
+        </div>
+    </div>
+{% endblock %}
+

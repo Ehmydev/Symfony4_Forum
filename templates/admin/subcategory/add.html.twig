@@ -1,0 +1,21 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title 'Sous-Categorie - Ajout' %}
+
+{% block content %}
+
+    <h1>Ajouter une sous-catégorie</h1>
+    {{ include('admin/subcategory/form.html.twig',{btn: "Ajouter"}) }}
+
+{% endblock %}
+
+{% block subcategory %}
+    <li class="active">
+        <a href="#dropcoll" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sous-Catégories</a>
+        <ul class="collapse show list-unstyled" id="dropcoll">
+            <li class="active">
+                <a href="{{ path('admin.subcategory.add') }}">Ajouter</a>
+            </li>
+        </ul>
+    </li>
+{% endblock %}

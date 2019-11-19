@@ -1,0 +1,78 @@
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+#tab-sidebar {
+    min-width: 300px;
+    max-width: 300px;
+    min-height: 100vh;
+}
+#tab-sidebar p{
+    padding: 10px;
+    font-size: 20px;
+    text-align: center;
+}
+#tab-sidebar ul{
+    padding: 10px 0;
+}
+#tab-sidebar ul ul{
+    padding: 0;
+}
+#tab-sidebar button{
+    width: 100%;
+    border: 0;
+    text-align: left;
+}
+#tab-sidebar button:hover{
+    background-color: lightgray !important;
+}
+#tab-sidebar a,#tab-sidebar button{
+    color: black;
+}
+#tab-sidebar a:hover{
+    text-decoration: none;
+}
+#tab-sidebar li a,#tab-sidebar button{
+    font-size: 18px;
+    padding: 10px;
+    display: block;
+}
+#tab-sidebar li a:hover{
+    color: white;
+    background: grey;
+}
+#tab-sidebar ul ul a:hover{
+    background: lightgray;
+    color: black;
+}
+#tab-sidebar li a[data-toggle="collapse"] {
+    position: relative;
+}
+#tab-sidebar #dropcoll a,#tab-sidebar #dropcoll button{
+    padding-left: 30px;
+    font-size: 15px;
+}
+#tab-sidebar .dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+#tab-sidebar ul li.active > a, #tab-content a[aria-expanded="true"] {
+    color: white;
+    background: grey;
+}
+#tab-sidebar ul ul li.active > a{
+    color: black;
+    background: lightgray;
+}
+@media (max-width: 768px) {
+    #tab-sidebar {
+        margin-left: -300px;
+    }
+}
+#tab-content{
+    padding: 40px 70px;
+    width: 100%;
+}
