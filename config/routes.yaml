@@ -28,6 +28,11 @@ topic:
   requirements: {"slug": "[a-z0-9-]*"}
   controller: App\Controller\TopicController::index
 
+topic.new:
+  path: /subcategory/{slug}-{id}/new
+  requirements: {"slug": "[a-z0-9-]*"}
+  controller: App\Controller\TopicController::new
+
 admin.index:
   path: /admin
   controller: App\Controller\Admin\AdminController::index

@@ -2,9 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\SubCategory;
 use App\Entity\Topic;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,7 +14,11 @@ class TopicType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('message')
+            ->add('message', CKEditorType::class, [
+                'config' => [
+                    'toolbar' => 'standard',
+                ],
+            ])
         ;
     }
 
@@ -23,7 +26,7 @@ class TopicType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Topic::class,
-            'translation_domain' => 'forms'
+            'translation_domain' => 'forms',
         ]);
     }
 }

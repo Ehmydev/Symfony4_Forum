@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminSubCategoryController extends AbstractController
 {
-
     /**
      * @var SubCategoryRepository
      */
@@ -27,6 +26,12 @@ class AdminSubCategoryController extends AbstractController
      */
     private $categoryRepository;
 
+    /**
+     * AdminSubCategoryController constructor.
+     * @param CategoryRepository $categoryRepository
+     * @param SubCategoryRepository $repository
+     * @param ObjectManager $em
+     */
     public function __construct(CategoryRepository $categoryRepository, SubCategoryRepository $repository, ObjectManager $em)
     {
         $this->repository = $repository;
@@ -41,10 +46,11 @@ class AdminSubCategoryController extends AbstractController
     {
         $categories = $this->categoryRepository->findAll();
         $subcategories = $this->repository->findAll();
-        return $this->render('admin/subcategory/index.html.twig',[
+
+        return $this->render('admin/subcategory/index.html.twig', [
             'categories' => $categories,
             'subcategories' => $subcategories,
-            'current_menu' => 'adminsubcat'
+            'current_menu' => 'adminsubcat',
         ]);
     }
 
@@ -55,16 +61,18 @@ class AdminSubCategoryController extends AbstractController
      */
     public function edit(SubCategory $subcategory, Request $request): Response
     {
-        $form = $this->createForm(SubCategoryType::class,$subcategory);
+        $form = $this->createForm(SubCategoryType::class, $subcategory);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->em->flush();
-            $this->addFlash('success','La sous-catégorie a bien été modifiée.');
+            $this->addFlash('success', 'La sous-catégorie a bien été modifiée.');
+
             return $this->redirectToRoute('admin.subcategory.index');
         }
-        return $this->render('admin/subcategory/edit.html.twig',[
+
+        return $this->render('admin/subcategory/edit.html.twig', [
             'subcategory' => $subcategory,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -75,17 +83,19 @@ class AdminSubCategoryController extends AbstractController
     public function add(Request $request): Response
     {
         $subcategory = new SubCategory();
-        $form = $this->createForm(SubCategoryType::class,$subcategory);
+        $form = $this->createForm(SubCategoryType::class, $subcategory);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($subcategory);
             $this->em->flush();
-            $this->addFlash('success','La sous-catégorie a bien été ajoutée.');
+            $this->addFlash('success', 'La sous-catégorie a bien été ajoutée.');
+
             return $this->redirectToRoute('admin.subcategory.index');
         }
-        return $this->render('admin/subcategory/add.html.twig',[
+
+        return $this->render('admin/subcategory/add.html.twig', [
             'subcategory' => $subcategory,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -96,12 +106,12 @@ class AdminSubCategoryController extends AbstractController
      */
     public function delete(SubCategory $subcategory, Request $request): Response
     {
-        if($this->isCsrfTokenValid('delete'.$subcategory->getId(), $request->get('_token'))){
+        if ($this->isCsrfTokenValid('delete'.$subcategory->getId(), $request->get('_token'))) {
             $this->em->remove($subcategory);
             $this->em->flush();
-            $this->addFlash('success','La sous-catégorie a bien été supprimée.');
+            $this->addFlash('success', 'La sous-catégorie a bien été supprimée.');
         }
+
         return $this->redirectToRoute('admin.subcategory.index');
     }
-
 }

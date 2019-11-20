@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Forum - Nouveau Sujet' %}
+
+{% block body %}
+    <div class="container mt-5 mb-5">
+        <h1>Nouveau Sujet</h1>
+
+        <p>Veuillez indiquer le titre de votre sujet ainsi que le message.</p>
+        <p>Votre sujet sera ajouté dans la sous-catégorie {{ subcategory.name }}.</p>
+
+        {{ form_start(form) }}
+            {{ form_rest(form) }}
+            <button class="btn btn-primary">Ajouter un sujet</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
