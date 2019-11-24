@@ -22,9 +22,6 @@ class HomeController extends AbstractController
         $this->repository = $repository;
     }
 
-    /**
-     * @return Response
-     */
     public function index(): Response
     {
         $categories = $this->repository->findAll();

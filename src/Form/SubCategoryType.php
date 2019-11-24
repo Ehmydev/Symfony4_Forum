@@ -19,7 +19,7 @@ class SubCategoryType extends AbstractType
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
-                'placeholder' => 'Choisissez une catégorie'
+                'placeholder' => 'Choisissez une catégorie',
             ])
         ;
     }
@@ -28,7 +28,7 @@ class SubCategoryType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => SubCategory::class,
-            'translation_domain' => 'forms'
+            'translation_domain' => 'forms',
         ]);
     }
 }

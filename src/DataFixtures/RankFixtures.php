@@ -10,6 +10,10 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RankFixtures extends Fixture implements OrderedFixtureInterface
 {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 84f10b5d59b15bcaf45015c9fed2102d2455e00d
     /**
      * @var UserPasswordEncoderInterface
      */
@@ -33,9 +37,15 @@ class RankFixtures extends Fixture implements OrderedFixtureInterface
     }
 
     /**
+<<<<<<< HEAD
      * Get the order of this fixture.
      *
      * @return int
+=======
+     * Get the order of this fixture
+     *
+     * @return integer
+>>>>>>> 84f10b5d59b15bcaf45015c9fed2102d2455e00d
      */
     public function getOrder()
     {

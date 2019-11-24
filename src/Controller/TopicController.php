@@ -79,7 +79,10 @@ class TopicController extends AbstractController
         $form = $this->createForm(TopicType::class, $topic);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+<<<<<<< HEAD
             $this->manager->persist($topic);
+=======
+>>>>>>> 84f10b5d59b15bcaf45015c9fed2102d2455e00d
             $this->manager->flush();
             $this->addFlash('success', 'Le topic a bien été ajouté.');
 

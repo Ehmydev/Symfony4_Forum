@@ -294,6 +294,7 @@ class User implements UserInterface, Serializable
             $this->login,
             $this->password,
             $this->mail,
+            $this->rank,
         ]);
     }
 
@@ -316,7 +317,8 @@ class User implements UserInterface, Serializable
             $this->id,
             $this->login,
             $this->password,
-            $this->mail
+            $this->mail,
+            $this->rank
             ) = unserialize($serialized, ['allowed_classes' => false]);
     }
 }

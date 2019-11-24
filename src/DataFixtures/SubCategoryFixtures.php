@@ -16,7 +16,7 @@ class SubCategoryFixtures extends Fixture implements OrderedFixtureInterface
         $faker = Factory::create('fr_FR');
         $categories = $manager->getRepository(Category::class)->findAll();
 
-        for ($i = 0; $i < 15; ++$i) {
+        for ($i = 0; $i < 20; ++$i) {
             $subcat = new SubCategory();
             $subcat->setName($faker->words(rand(1, 2), true))
                 ->setCategory($faker->randomElement($categories))
