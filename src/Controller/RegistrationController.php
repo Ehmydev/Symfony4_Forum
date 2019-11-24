@@ -2,14 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Rank;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Repository\RankRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegistrationController extends AbstractController

@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminCategoryController extends AbstractController
 {
-
     /**
      * @var CategoryRepository
      */
@@ -22,6 +21,11 @@ class AdminCategoryController extends AbstractController
      */
     private $em;
 
+    /**
+     * AdminCategoryController constructor.
+     * @param CategoryRepository $repository
+     * @param ObjectManager $em
+     */
     public function __construct(CategoryRepository $repository, ObjectManager $em)
     {
         $this->repository = $repository;
@@ -34,9 +38,10 @@ class AdminCategoryController extends AbstractController
     public function index(): Response
     {
         $categories = $this->repository->findAll();
-        return $this->render('admin/category/index.html.twig',[
+
+        return $this->render('admin/category/index.html.twig', [
             'categories' => $categories,
-            'current_menu' => 'admincat'
+            'current_menu' => 'admincat',
         ]);
     }
 
@@ -47,16 +52,18 @@ class AdminCategoryController extends AbstractController
      */
     public function edit(Category $category, Request $request): Response
     {
-        $form = $this->createForm(CategoryType::class,$category);
+        $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->em->flush();
-            $this->addFlash('success','La catégorie a bien été modifiée.');
+            $this->addFlash('success', 'La catégorie a bien été modifiée.');
+
             return $this->redirectToRoute('admin.category.index');
         }
-        return $this->render('admin/category/edit.html.twig',[
+
+        return $this->render('admin/category/edit.html.twig', [
             'category' => $category,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -67,17 +74,19 @@ class AdminCategoryController extends AbstractController
     public function add(Request $request): Response
     {
         $category = new Category();
-        $form = $this->createForm(CategoryType::class,$category);
+        $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($category);
             $this->em->flush();
-            $this->addFlash('success','La catégorie a bien été ajoutée.');
+            $this->addFlash('success', 'La catégorie a bien été ajoutée.');
+
             return $this->redirectToRoute('admin.category.index');
         }
-        return $this->render('admin/category/add.html.twig',[
+
+        return $this->render('admin/category/add.html.twig', [
             'category' => $category,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -88,12 +97,12 @@ class AdminCategoryController extends AbstractController
      */
     public function delete(Category $category, Request $request): Response
     {
-        if($this->isCsrfTokenValid('delete'.$category->getId(), $request->get('_token'))){
+        if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->get('_token'))) {
             $this->em->remove($category);
             $this->em->flush();
-            $this->addFlash('success','La catégorie a bien été supprimée.');
+            $this->addFlash('success', 'La catégorie a bien été supprimée.');
         }
+
         return $this->redirectToRoute('admin.category.index');
     }
-
 }
