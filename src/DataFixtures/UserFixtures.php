@@ -11,10 +11,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture implements OrderedFixtureInterface
 {
-<<<<<<< HEAD
-=======
-
->>>>>>> 84f10b5d59b15bcaf45015c9fed2102d2455e00d
     /**
      * @var UserPasswordEncoderInterface
      */
@@ -25,25 +21,21 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
         $this->encoder = $encoder;
     }
 
+    /**
+     * @param ObjectManager $manager
+     */
     public function load(ObjectManager $manager)
     {
         $ranks = $manager->getRepository(Rank::class)->findAll();
 
         $user = new User();
-<<<<<<< HEAD
         $user->setLogin('Pipaul620')
             ->setPassword($this->encoder->encodePassword($user, 'admin'))
             ->setMail('oui@oui.fr')
-=======
-        $user->setLogin("pipaul620")
-            ->setPassword($this->encoder->encodePassword($user,"admin"))
-            ->setMail("oui@oui.fr")
->>>>>>> 84f10b5d59b15bcaf45015c9fed2102d2455e00d
             ->addRank($ranks[0])
             ->addRank($ranks[1])
         ;
 
-<<<<<<< HEAD
         $user2 = new User();
         $user2->setLogin('Ehmydev')
             ->setPassword($this->encoder->encodePassword($user2, 'user'))
@@ -53,22 +45,13 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
 
         $manager->persist($user);
         $manager->persist($user2);
-=======
-        $manager->persist($user);
->>>>>>> 84f10b5d59b15bcaf45015c9fed2102d2455e00d
         $manager->flush();
     }
 
     /**
-<<<<<<< HEAD
      * Get the order of this fixture.
      *
      * @return int
-=======
-     * Get the order of this fixture
-     *
-     * @return integer
->>>>>>> 84f10b5d59b15bcaf45015c9fed2102d2455e00d
      */
     public function getOrder()
     {

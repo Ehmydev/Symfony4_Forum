@@ -18,11 +18,7 @@ class MessageFixtures extends Fixture implements OrderedFixtureInterface
         $topics = $manager->getRepository(Topic::class)->findAll();
         $user = $manager->getRepository(User::class)->findAll()[0];
 
-<<<<<<< HEAD
         for ($i = 0; $i < 500; ++$i) {
-=======
-        for ($i = 0; $i < 10000; $i++){
->>>>>>> 84f10b5d59b15bcaf45015c9fed2102d2455e00d
             $message = new Message();
             $message
                 ->setCreatedAt($faker->dateTime('now'))
@@ -37,15 +33,9 @@ class MessageFixtures extends Fixture implements OrderedFixtureInterface
     }
 
     /**
-<<<<<<< HEAD
      * Get the order of this fixture.
      *
      * @return int
-=======
-     * Get the order of this fixture
-     *
-     * @return integer
->>>>>>> 84f10b5d59b15bcaf45015c9fed2102d2455e00d
      */
     public function getOrder()
     {
