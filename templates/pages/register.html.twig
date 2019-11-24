@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <div class="container mt-5 mb-5">
+        <h1>Créer un compte</h1>
+
+        {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.login) }}
+        {{ form_row(registrationForm.mail) }}
+        {{ form_row(registrationForm.plainPassword) }}
+        {{ form_row(registrationForm.agreeTerms) }}
+
+        <button class="btn btn-primary">S'enregistrer</button>
+        {{ form_end(registrationForm) }}
+    </div>
+{% endblock %}

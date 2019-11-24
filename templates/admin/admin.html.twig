@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Administration' %}
+
+{% block stylesheets %}
+<link type="text/css" rel="stylesheet" href="{{ asset('css/admin.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="wrapper">
+        <nav id="tab-sidebar" class="bg-light">
+            <ul class="list-unstyled">
+                <p><a href="{{ path('admin.index') }}">Administration</a></p>
+                {% block category %}
+                    <li {% if current_menu is defined and current_menu == "admincat" %}class="active"{% endif %}>
+                        <a href="{{ path('admin.category.index') }}">Catégories</a>
+                    </li>
+                {% endblock %}
+                {% block subcategory %}
+                    <li {% if current_menu is defined and current_menu == "adminsubcat" %}class="active"{% endif %}>
+                        <a href="{{ path('admin.subcategory.index') }}">Sous-Catégories</a>
+                    </li>
+                {% endblock %}
+                <li>
+                    <a href="#">Utilisateurs</a>
+                </li>
+            </ul>
+        </nav>
+        <div id="tab-content">
+            {% block content %}
+                <h1>Espace administration</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus delectus doloribus est iusto molestiae numquam quos vel. Autem culpa doloremque iure molestiae nesciunt qui rem? Earum fugiat molestiae omnis quo!</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus delectus doloribus est iusto molestiae numquam quos vel. Autem culpa doloremque iure molestiae nesciunt qui rem? Earum fugiat molestiae omnis quo!</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus delectus doloribus est iusto molestiae numquam quos vel. Autem culpa doloremque iure molestiae nesciunt qui rem? Earum fugiat molestiae omnis quo!</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus delectus doloribus est iusto molestiae numquam quos vel. Autem culpa doloremque iure molestiae nesciunt qui rem? Earum fugiat molestiae omnis quo!</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus delectus doloribus est iusto molestiae numquam quos vel. Autem culpa doloremque iure molestiae nesciunt qui rem? Earum fugiat molestiae omnis quo!</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus delectus doloribus est iusto molestiae numquam quos vel. Autem culpa doloremque iure molestiae nesciunt qui rem? Earum fugiat molestiae omnis quo!</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus delectus doloribus est iusto molestiae numquam quos vel. Autem culpa doloremque iure molestiae nesciunt qui rem? Earum fugiat molestiae omnis quo!</p>
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

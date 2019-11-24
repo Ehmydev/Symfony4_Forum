@@ -1,0 +1,18 @@
+table thead a{
+    color: white;
+    font-size: 1.3em;
+    padding: 8px;
+}
+table thead a:hover{
+    color: white;
+}
+table tbody a{
+    color: black;
+    font-size: 1.2em;
+    text-decoration: underline;
+    display: block;
+}
+table tbody a:hover{
+    color: black;
+}
+table thead

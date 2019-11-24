@@ -1,0 +1,31 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title 'Categorie - Edition' %}
+
+{% block content %}
+
+    <h1>Modifier la catégorie</h1>
+    {{ include('admin/category/form.html.twig',{btn: "Modifier"}) }}
+
+{% endblock %}
+
+{% block category %}
+    <li class="active">
+        <a href="#dropcoll" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Catégorie</a>
+        <ul class="collapse show list-unstyled" id="dropcoll">
+            <li>
+                <a href="{{ path('admin.category.add') }}">Ajouter</a>
+            </li>
+            <li class="active">
+                <a href="{{ path('admin.category.edit',{id: category.id}) }}">Modifier</a>
+            </li>
+            <li>
+                <form method="post" action="{{ path('admin.category.delete',{id: category.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer cette catégorie ?')">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
+                    <button class="bg-light">Supprimer</button>
+                </form>
+            </li>
+        </ul>
+    </li>
+{% endblock %}

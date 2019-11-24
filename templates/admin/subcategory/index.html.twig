@@ -1,0 +1,45 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title 'Admin - Sous-Catégories' %}
+
+{% block content %}
+    <h1>Les sous-catégories</h1>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Succès !</strong> {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+
+    <table class="table table-stripped mt-5">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Catégorie</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for subcategory in subcategories %}
+            <tr>
+                <td>{{ subcategory.id }}</td>
+                <td>{{ subcategory.name }}</td>
+                <td>{{ subcategory.category.name }}</td>
+                <td>
+                    <a href="{{ path('admin.subcategory.edit',{id: subcategory.id}) }}" class="btn btn-primary">Modifier</a>
+                    <form method="post" action="{{ path('admin.subcategory.delete',{id: subcategory.id}) }}" style="display: inline-block" onsubmit="return confirm('Voulez-vous vraiment supprimer cette sous-catégorie ?')">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ subcategory.id) }}">
+                        <button class="btn btn-danger">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('admin.subcategory.add') }}" class="btn btn-primary w-25">Ajouter une sous-catégorie</a>
+{% endblock %}

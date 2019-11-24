@@ -1,0 +1,31 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title 'Sous-Categorie - Edition' %}
+
+{% block content %}
+
+    <h1>Modifier la sous-catégorie</h1>
+    {{ include('admin/subcategory/form.html.twig',{btn: "Modifier"}) }}
+
+{% endblock %}
+
+{% block subcategory %}
+    <li class="active">
+        <a href="#dropcoll" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sous-Catégorie</a>
+        <ul class="collapse show list-unstyled" id="dropcoll">
+            <li>
+                <a href="{{ path('admin.subcategory.add') }}">Ajouter</a>
+            </li>
+            <li class="active">
+                <a href="{{ path('admin.subcategory.edit',{id: subcategory.id}) }}">Modifier</a>
+            </li>
+            <li>
+                <form method="post" action="{{ path('admin.subcategory.delete',{id: subcategory.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer cette sous-catégorie ?')">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ subcategory.id) }}">
+                    <button class="bg-light">Supprimer</button>
+                </form>
+            </li>
+        </ul>
+    </li>
+{% endblock %}
