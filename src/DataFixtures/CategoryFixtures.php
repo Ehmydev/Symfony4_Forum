@@ -14,7 +14,7 @@ class CategoryFixtures extends Fixture implements OrderedFixtureInterface
     {
         $faker = Factory::create('fr_FR');
 
-        for ($i = 0; $i < 3; ++$i) {
+        for ($i = 0; $i < 5; ++$i) {
             $category = new Category();
             $category->setName($faker->words(rand(1, 2), true));
 

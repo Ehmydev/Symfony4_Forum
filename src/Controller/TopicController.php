@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Message;
 use App\Entity\SubCategory;
 use App\Entity\Topic;
 use App\Entity\User;
+use App\Form\MessageType;
 use App\Form\TopicType;
 use App\Repository\MessageRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -43,6 +45,32 @@ class TopicController extends AbstractController
             $request->query->getInt('page', 1),
             10
         );
+
+        if ($this->getUser() instanceof User) {
+            $user = $this->getUser();
+            $message = new Message();
+            $message->setTopic($topic)
+                ->setUser($user)
+                ->setCreatedAt(new \DateTime('now'));
+            $form = $this->createForm(MessageType::class, $message);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $this->manager->persist($message);
+                $this->manager->flush();
+                $this->addFlash('success', 'Le message a bien été ajouté.');
+
+                return $this->redirectToRoute('topic', [
+                    'id' => $topic->getId(),
+                    'slug' => $topic->getSlug(),
+                ]);
+            }
+            return $this->render('forum/topic.html.twig', [
+                'topic' => $topic,
+                'messages' => $messages,
+                'form' => $form->createView(),
+                'current_menu' => 'home',
+            ]);
+        }
 
         return $this->render('forum/topic.html.twig', [
             'topic' => $topic,

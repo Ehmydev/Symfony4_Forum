@@ -17,18 +17,25 @@
                     <thead class="thead-dark">
                         <tr class="align-middle">
                             <th style="max-width: 70%; min-width: 65%;"><a href="{{ path('category',{id: category.id, slug: category.slug}) }}">{{ category.name }}</a></th>
-                            <th class="align-middle">Sujets</th>
-                            <th class="align-middle">Messages</th>
-                            <th class="align-middle">Dernier message</th>
+                            <th class="align-middle text-center">Sujets</th>
+                            <th class="align-middle text-center">Messages</th>
+                            <th class="align-middle text-center">Dernier message</th>
                         </tr>
                     </thead>
                     <tbody>
                     {% for subcat in category.subCategories %}
+                        {% set nbMsg = 0 %}
+                        {% set messages = [] %}
+                        {% for item in subcat.topics %}
+                            {% set nbMsg = nbMsg + item.messages.count %}
+                            {% set messages = messages|merge(item.messages) %}
+                        {% endfor %}
+                        {% set lastMsg = messages|custsort((a,b) => a.createdat <=> b.createdat)|last %}
                         <tr>
                             <td><a href="{{ path('subcategory', {id: subcat.id, slug: subcat.slug}) }}">{{ subcat.name }}</a>{{ subcat.description }}</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td class="align-middle text-center">{{ subcat.topics.count }}</td>
+                            <td class="align-middle text-center">{{ nbMsg }}</td>
+                            <td class="align-middle text-center">Par <span style="color: {{ lastMsg.user.rank.first.color }}">{{ lastMsg.user.login }}</span><br>Le {{ lastMsg.createdat|date("d M Y à H:i") }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>

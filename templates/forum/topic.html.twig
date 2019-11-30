@@ -4,6 +4,16 @@
 
 {% block body %}
     <div class="container mt-5 mb-5">
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Succès !</strong> {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ path('home') }}">Accueil</a></li>
@@ -26,24 +36,37 @@
                 <tbody>
                 {% if app.request.get('page')==null or app.request.get('page')==1 %}
                     <tr>
-                        <td>{{ topic.user.login }}</td>
+                        <td>{{ topic.user.login }}<br><span style="color: {{ topic.user.rank.first.color }}">{{ topic.user.rank.first.libRank }}</span></td>
                         <td>
                             Le {{ topic.createdat|date("d M Y à H:i:s") }}
                             <hr>
-                            {{ topic.message | nl2br }}
+                            {{ topic.message | raw }}
                         </td>
                     </tr>
                 {% endif %}
                 {% for msg in messages %}
                     <tr>
-                        <td>{{ msg.user.login }}</td>
+                        <td>{{ msg.user.login }}<br><span style="color: {{ msg.user.rank.first.color }}">{{ msg.user.rank.first.libRank }}</span></td>
                         <td>
                             Le {{ msg.createdat|date("d M Y à H:i:s") }}
                             <hr>
-                            {{ msg.message | nl2br }}
+                            {{ msg.message|raw }}
                         </td>
                     </tr>
                 {% endfor %}
+                </tbody>
+                {% if app.user %}
+                    <tfoot>
+                    <tr>
+                        <td colspan="2">
+                            {{ form_start(form) }}
+                            {{ form_rest(form) }}
+                            <button class="btn btn-primary w-100">Ajouter un message</button>
+                            {{ form_end(form) }}
+                        </td>
+                    </tr>
+                    </tfoot>
+                {% endif %}
             </table>
         </div>
         <div class="pagination">

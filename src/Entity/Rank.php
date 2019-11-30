@@ -28,6 +28,16 @@ class Rank
      */
     private $users;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $libRank;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $color;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -74,6 +84,30 @@ class Rank
             $this->users->removeElement($user);
             $user->removeRank($this);
         }
+
+        return $this;
+    }
+
+    public function getLibRank(): ?string
+    {
+        return $this->libRank;
+    }
+
+    public function setLibRank(string $libRank): self
+    {
+        $this->libRank = $libRank;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(string $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }

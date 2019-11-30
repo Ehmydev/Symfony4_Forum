@@ -16,13 +16,13 @@ class MessageFixtures extends Fixture implements OrderedFixtureInterface
     {
         $faker = Factory::create('fr_FR');
         $topics = $manager->getRepository(Topic::class)->findAll();
-        $user = $manager->getRepository(User::class)->findAll()[0];
+        $users = $manager->getRepository(User::class)->findAll();
 
-        for ($i = 0; $i < 500; ++$i) {
+        for ($i = 0; $i < 10000; ++$i) {
             $message = new Message();
             $message
                 ->setCreatedAt($faker->dateTime('now'))
-                ->setUser($user)
+                ->setUser($users[rand(0, sizeof($users) - 1)])
                 ->setMessage($faker->realText(1000))
                 ->setTopic($faker->randomElement($topics))
             ;

@@ -7,6 +7,7 @@ use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Faker\Factory;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture implements OrderedFixtureInterface
@@ -21,9 +22,6 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
         $this->encoder = $encoder;
     }
 
-    /**
-     * @param ObjectManager $manager
-     */
     public function load(ObjectManager $manager)
     {
         $ranks = $manager->getRepository(Rank::class)->findAll();
@@ -36,15 +34,21 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
             ->addRank($ranks[1])
         ;
 
-        $user2 = new User();
-        $user2->setLogin('Ehmydev')
-            ->setPassword($this->encoder->encodePassword($user2, 'user'))
-            ->setMail('oui@oui.fr')
-            ->addRank($ranks[0])
-        ;
+        $faker = Factory::create('fr_FR');
+
+        for ($i = 0; $i < 50; ++$i) {
+            $user2 = new User();
+            $user2->setLogin($faker->userName)
+                ->setPassword($this->encoder->encodePassword($user2, 'user'))
+                ->setMail($faker->email)
+                ->setAbout($faker->words(rand(5, 10), true))
+                ->setLocation($faker->city)
+                ->addRank($ranks[rand(1, sizeof($ranks) - 1)])
+            ;
+            $manager->persist($user2);
+        }
 
         $manager->persist($user);
-        $manager->persist($user2);
         $manager->flush();
     }
 

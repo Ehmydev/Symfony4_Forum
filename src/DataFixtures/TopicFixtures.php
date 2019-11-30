@@ -16,14 +16,14 @@ class TopicFixtures extends Fixture implements OrderedFixtureInterface
     {
         $faker = Factory::create('fr_FR');
         $subcategories = $manager->getRepository(SubCategory::class)->findAll();
-        $user = $manager->getRepository(User::class)->findAll()[0];
+        $users = $manager->getRepository(User::class)->findAll();
 
-        for ($i = 0; $i < 100; ++$i) {
+        for ($i = 0; $i < 1000; ++$i) {
             $topic = new Topic();
             $topic
                 ->setCreatedAt($faker->dateTime('now'))
                 ->setTitle($faker->words(rand(4, 16), true))
-                ->setUser($user)
+                ->setUser($users[rand(0, sizeof($users) - 1)])
                 ->setMessage($faker->realText(1000))
                 ->setSubCategory($faker->randomElement($subcategories))
             ;

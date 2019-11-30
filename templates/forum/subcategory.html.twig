@@ -33,28 +33,29 @@
             {{ knp_pagination_render(topics) }}
         </div>
         {% if app.user %}
-            <a href="{{ path('topic.new', {id: subcategory.id, slug: subcategory.slug }) }}" class="btn btn-dark float-right">Ajouter un sujet</a>
+            <a href="{{ path('topic.new', {id: subcategory.id, slug: subcategory.slug }) }}" class="btn btn-dark float-right mb-3">Ajouter un sujet</a>
         {% endif %}
         <div class="table-responsive">
             <table class="table table-striped table-bordered">
                 <thead class="thead-dark">
                 <tr class="align-middle">
                     <th style="max-width: 70%; min-width: 65%;"><a href="{{ path('subcategory', {id: subcategory.id, slug: subcategory.slug}) }}">{{ subcategory.name }}</a></th>
-                    <th class="align-middle">Réponses</th>
-                    <th class="align-middle">Vues</th>
-                    <th class="align-middle">Dernier message</th>
+                    <th class="align-middle text-center">Réponses</th>
+                    <th class="align-middle text-center">Vues</th>
+                    <th class="align-middle text-center">Dernier message</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for topic in topics %}
+                    {% set lastMsg = topic.messages|custsort((a,b) => a.createdat <=> b.createdat)|last %}
                     <tr>
                         <td>
                             <a href="{{ path('topic', {id: topic.id, slug: topic.slug}) }}" class="d-block">{{ topic.title }}</a>
-                            Par {{ topic.user.login }} le {{ topic.createdat|date("d M Y à H:i:s") }}
+                            Par <span style="color: {{ topic.user.rank.first.color }}">{{ topic.user.login }}</span> le {{ topic.createdat|date("d M Y à H:i") }}
                         </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td class="text-center align-middle">{{ topic.messages.count }}</td>
+                        <td class="text-center align-middle"></td>
+                        <td class="text-center align-middle">Par <span style="color: {{ lastMsg.user.rank.first.color }}">{{ lastMsg.user.login }}</span><br>Le {{ lastMsg.createdat|date("d M Y à H:i") }}</td>
                     </tr>
                 {% endfor %}
             </table>
