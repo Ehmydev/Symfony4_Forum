@@ -1,7 +1,7 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        from_database:
+        app_user_provider:
             entity:
                 class: App\Entity\User
                 property: login
@@ -12,13 +12,21 @@ security:
         main:
             anonymous: true
             logout:
-                path: /logout
-                target: /
+                path: app_logout
+                target: home
+
+            remember_me:
+                secret:   '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /
 
             # activate different ways to authenticate
 
             form_login:
                 check_path: login
+            guard:
+                authenticators:
+                    - App\Security\UserAuthenticator
             #http_basic: true
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 

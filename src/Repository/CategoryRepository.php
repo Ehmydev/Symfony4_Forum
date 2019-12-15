@@ -19,6 +19,16 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
+    public function findAllWithSubcategoryTopicMessage()
+    {
+        return $this->createQueryBuilder('c')
+            ->join('c.subCategories', 's')->addSelect('s')
+            ->join('s.topics', 't')->addSelect('t')
+            ->join('t.messages', 'm')->addSelect('m')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Category[] Returns an array of Category objects
     //  */

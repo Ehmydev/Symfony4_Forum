@@ -24,7 +24,7 @@ class HomeController extends AbstractController
 
     public function index(): Response
     {
-        $categories = $this->repository->findAll();
+        $categories = $this->repository->findAllWithSubcategoryTopicMessage();
 
         return $this->render('pages/home.html.twig', [
             'current_menu' => 'home',
