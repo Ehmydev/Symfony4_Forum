@@ -62,11 +62,23 @@ class User implements UserInterface, Serializable
      */
     private $messages;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PrivateMessage", mappedBy="author")
+     */
+    private $privateMessages;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Conversation", mappedBy="starter")
+     */
+    private $conversations;
+
     public function __construct()
     {
         $this->rank = new ArrayCollection();
         $this->topics = new ArrayCollection();
         $this->messages = new ArrayCollection();
+        $this->privateMessages = new ArrayCollection();
+        $this->conversations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -320,5 +332,67 @@ class User implements UserInterface, Serializable
             $this->mail,
             $this->rank
             ) = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    /**
+     * @return Collection|PrivateMessage[]
+     */
+    public function getPrivateMessages(): Collection
+    {
+        return $this->privateMessages;
+    }
+
+    public function addPrivateMessage(PrivateMessage $privateMessage): self
+    {
+        if (!$this->privateMessages->contains($privateMessage)) {
+            $this->privateMessages[] = $privateMessage;
+            $privateMessage->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removePrivateMessage(PrivateMessage $privateMessage): self
+    {
+        if ($this->privateMessages->contains($privateMessage)) {
+            $this->privateMessages->removeElement($privateMessage);
+            // set the owning side to null (unless already changed)
+            if ($privateMessage->getAuthor() === $this) {
+                $privateMessage->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Conversation[]
+     */
+    public function getConversations(): Collection
+    {
+        return $this->conversations;
+    }
+
+    public function addConversation(Conversation $conversation): self
+    {
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations[] = $conversation;
+            $conversation->setStarter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversation(Conversation $conversation): self
+    {
+        if ($this->conversations->contains($conversation)) {
+            $this->conversations->removeElement($conversation);
+            // set the owning side to null (unless already changed)
+            if ($conversation->getStarter() === $this) {
+                $conversation->setStarter(null);
+            }
+        }
+
+        return $this;
     }
 }
