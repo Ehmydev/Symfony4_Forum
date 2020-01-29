@@ -70,7 +70,12 @@ class User implements UserInterface, Serializable
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Conversation", mappedBy="starter")
      */
-    private $conversations;
+    private $conversationsStarter;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Conversation", mappedBy="receiver")
+     */
+    private $conversationsReceiver;
 
     public function __construct()
     {
@@ -78,7 +83,8 @@ class User implements UserInterface, Serializable
         $this->topics = new ArrayCollection();
         $this->messages = new ArrayCollection();
         $this->privateMessages = new ArrayCollection();
-        $this->conversations = new ArrayCollection();
+        $this->conversationsStarter = new ArrayCollection();
+        $this->conversationsReceiver = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -368,25 +374,56 @@ class User implements UserInterface, Serializable
     /**
      * @return Collection|Conversation[]
      */
-    public function getConversations(): Collection
+    public function getConversationsStarter(): Collection
     {
-        return $this->conversations;
+        return $this->conversationsStarter;
     }
 
-    public function addConversation(Conversation $conversation): self
+    public function addConversationStarter(Conversation $conversation): self
     {
-        if (!$this->conversations->contains($conversation)) {
-            $this->conversations[] = $conversation;
+        if (!$this->conversationsStarter->contains($conversation)) {
+            $this->conversationsStarter[] = $conversation;
             $conversation->setStarter($this);
         }
 
         return $this;
     }
 
-    public function removeConversation(Conversation $conversation): self
+    public function removeConversationStarter(Conversation $conversation): self
     {
-        if ($this->conversations->contains($conversation)) {
-            $this->conversations->removeElement($conversation);
+        if ($this->conversationsStarter->contains($conversation)) {
+            $this->conversationsStarter->removeElement($conversation);
+            // set the owning side to null (unless already changed)
+            if ($conversation->getStarter() === $this) {
+                $conversation->setStarter(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Conversation[]
+     */
+    public function getConversationsReceiver(): Collection
+    {
+        return $this->conversationsReceiver;
+    }
+
+    public function addConversationReceiver(Conversation $conversation): self
+    {
+        if (!$this->conversationsReceiver->contains($conversation)) {
+            $this->conversationsReceiver[] = $conversation;
+            $conversation->setStarter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversationReceiver(Conversation $conversation): self
+    {
+        if ($this->conversationsReceiver->contains($conversation)) {
+            $this->conversationsReceiver->removeElement($conversation);
             // set the owning side to null (unless already changed)
             if ($conversation->getStarter() === $this) {
                 $conversation->setStarter(null);

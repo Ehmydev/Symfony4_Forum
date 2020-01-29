@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Message privé{% endblock %}
+
+{% block body %}
+    <main class="container mt-5 mb-5">
+        <h1>Réponses de votre message privé</h1>
+
+        <table class="table table-striped mt-5">
+            <tbody>
+                <tr><td>Future liste des réponses de MP</td></tr>
+            </tbody>
+        </table>
+
+        <a class="btn btn-outline-primary w-50" href="{{ path('conversation_index') }}">Retour à la liste</a>
+    </main>
+{% endblock %}

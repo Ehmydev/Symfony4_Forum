@@ -25,13 +25,13 @@ class Conversation
     private $title;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="conversations")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="conversationsStarter")
      * @ORM\JoinColumn(nullable=false)
      */
     private $starter;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="conversations")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="conversationsReceiver")
      * @ORM\JoinColumn(nullable=false)
      */
     private $receiver;
