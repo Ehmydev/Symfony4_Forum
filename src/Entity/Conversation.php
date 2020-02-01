@@ -42,7 +42,7 @@ class Conversation
     private $created_at;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\PrivateMessage", mappedBy="conversation")
+     * @ORM\OneToMany(targetEntity="App\Entity\PrivateMessage", mappedBy="conversation", cascade={"persist"})
      */
     private $privateMessages;
 

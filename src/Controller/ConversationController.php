@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Conversation;
+use App\Entity\PrivateMessage;
 use App\Form\ConversationType;
 use App\Repository\ConversationRepository;
 use DateTime;
@@ -37,9 +38,15 @@ class ConversationController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $pm = new PrivateMessage();
+        $pm->setAuthor($this->getUser())
+            ->setIsRead(true)
+            ->setPostedAt(new DateTime());
         $conversation = new Conversation();
         $conversation->setCreatedAt(new DateTime())
-            ->setStarter($this->getUser());
+            ->setStarter($this->getUser())
+            ->addPrivateMessage($pm);
+
         $form = $this->createForm(ConversationType::class, $conversation);
         $form->handleRequest($request);
 
