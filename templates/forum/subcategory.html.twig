@@ -48,7 +48,11 @@
                 <tbody>
                 {% for topic in topics %}
                     {% set lastMsg = topic.messages|custsort((a,b) => a.createdat <=> b.createdat)|last %}
+                    {% if topic.pin %}
+                    <tr style="background-color:#ffc9bd">
+                    {% else %}
                     <tr>
+                    {% endif %}
                         <td>
                             <a href="{{ path('topic', {id: topic.id, slug: topic.slug}) }}" class="d-block">{{ topic.title }}</a>
                             Par <span style="color: {{ topic.user.rank.first.color }}">{{ topic.user.login }}</span> le {{ topic.createdat|date("d M Y à H:i") }}

@@ -26,7 +26,8 @@ class TopicFixtures extends Fixture implements OrderedFixtureInterface
                 ->setUser($users[rand(0, sizeof($users) - 1)])
                 ->setMessage($faker->realText(1000))
                 ->setSubCategory($faker->randomElement($subcategories))
-            ;
+                ->setPin(false);
+
             $manager->persist($topic);
         }
 

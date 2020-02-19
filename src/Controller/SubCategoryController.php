@@ -18,6 +18,7 @@ class SubCategoryController extends AbstractController
 
     /**
      * SubCategoryController constructor.
+     *
      * @param TopicRepository $topicRepository
      */
     public function __construct(TopicRepository $topicRepository)
@@ -27,9 +28,10 @@ class SubCategoryController extends AbstractController
 
     /**
      * @param PaginatorInterface $paginator
-     * @param Request $request
-     * @param SubCategory $subCategory
-     * @param string $slug
+     * @param Request            $request
+     * @param SubCategory        $subCategory
+     * @param string             $slug
+     *
      * @return Response
      */
     public function index(PaginatorInterface $paginator, Request $request, SubCategory $subCategory, string $slug): Response

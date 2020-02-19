@@ -51,6 +51,11 @@ class Topic
      */
     private $messages;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $pin;
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
@@ -153,6 +158,18 @@ class Topic
                 $message->setTopic(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPin(): bool
+    {
+        return $this->pin;
+    }
+
+    public function setPin(bool $pin): self
+    {
+        $this->pin = $pin;
 
         return $this;
     }

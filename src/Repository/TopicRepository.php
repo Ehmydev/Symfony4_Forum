@@ -26,6 +26,7 @@ class TopicRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('t')
             ->andWhere('t.subCategory = :subcat')
             ->setParameter('subcat', $subcat)
+            ->orderBy('t.pin', 'DESC')
             ->orderBy('t.created_at', 'DESC')
             ->getQuery();
     }
