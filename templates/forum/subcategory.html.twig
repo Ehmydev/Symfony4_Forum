@@ -3,6 +3,11 @@
 {% block title %}Forum - {{ subcategory.name }}{% endblock %}
 
 {% block body %}
+<script>
+function search(){
+location.href='{{ path('subcategory', {id: subcategory.id, slug: subcategory.slug}) }}/'+document.getElementById('search').value;
+} 
+</script>
     <div class="container mt-5 mb-5">
 
         {% for message in app.flashes('success') %}
@@ -29,6 +34,10 @@
                 <li class="breadcrumb-item active" aria-current="page">{{ subcategory.name }}</li>
             </ol>
         </nav>
+        <div>
+            <input type="text" id="search" name="search" value={{ search }}>
+            <button onclick="search()"> Rechercher </button>
+        </div>
         <div class="pagination float-left">
             {{ knp_pagination_render(topics) }}
         </div>
