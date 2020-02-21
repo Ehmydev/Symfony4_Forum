@@ -5,10 +5,10 @@ namespace App\Controller\Admin;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminCategoryController extends AbstractController
 {
@@ -23,8 +23,9 @@ class AdminCategoryController extends AbstractController
 
     /**
      * AdminCategoryController constructor.
+     *
      * @param CategoryRepository $repository
-     * @param ObjectManager $em
+     * @param ObjectManager      $em
      */
     public function __construct(CategoryRepository $repository, ObjectManager $em)
     {
@@ -47,7 +48,8 @@ class AdminCategoryController extends AbstractController
 
     /**
      * @param Category $category
-     * @param Request $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function edit(Category $category, Request $request): Response
@@ -69,6 +71,7 @@ class AdminCategoryController extends AbstractController
 
     /**
      * @param Request $request
+     *
      * @return Response
      */
     public function add(Request $request): Response
@@ -92,7 +95,8 @@ class AdminCategoryController extends AbstractController
 
     /**
      * @param Category $category
-     * @param Request $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function delete(Category $category, Request $request): Response

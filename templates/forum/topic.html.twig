@@ -41,6 +41,10 @@
                             Le {{ topic.createdat|date("d M Y à H:i:s") }}
                             <hr>
                             {{ topic.message | raw }}
+                            <div>
+                                <button type="button" class="btn btn-success">0</button>
+                                <button type="button" class="btn btn-danger">0</button>
+                            </div>
                         </td>
                     </tr>
                 {% endif %}
@@ -51,6 +55,10 @@
                             Le {{ msg.createdat|date("d M Y à H:i:s") }}
                             <hr>
                             {{ msg.message|raw }}
+                            <div>
+                                <button type="button" class="btn btn-success">0</button>
+                                <button type="button" class="btn btn-danger">0</button>
+                            </div>
                         </td>
                     </tr>
                 {% endfor %}
