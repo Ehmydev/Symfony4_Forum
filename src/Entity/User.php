@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 use Serializable;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -77,6 +77,11 @@ class User implements UserInterface, Serializable
      */
     private $conversationsReceiver;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Reaction", mappedBy="user")
+     */
+    private $reactions;
+
     public function __construct()
     {
         $this->rank = new ArrayCollection();
@@ -85,6 +90,7 @@ class User implements UserInterface, Serializable
         $this->privateMessages = new ArrayCollection();
         $this->conversationsStarter = new ArrayCollection();
         $this->conversationsReceiver = new ArrayCollection();
+        $this->reactions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -427,6 +433,37 @@ class User implements UserInterface, Serializable
             // set the owning side to null (unless already changed)
             if ($conversation->getStarter() === $this) {
                 $conversation->setStarter(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reaction[]
+     */
+    public function getReactions(): Collection
+    {
+        return $this->reactions;
+    }
+
+    public function addReaction(Reaction $reaction): self
+    {
+        if (!$this->reactions->contains($reaction)) {
+            $this->reactions[] = $reaction;
+            $reaction->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReaction(Reaction $reaction): self
+    {
+        if ($this->reactions->contains($reaction)) {
+            $this->reactions->removeElement($reaction);
+            // set the owning side to null (unless already changed)
+            if ($reaction->getUser() === $this) {
+                $reaction->setUser(null);
             }
         }
 

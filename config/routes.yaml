@@ -31,6 +31,12 @@ topic.new:
   requirements: {"slug": "[a-z0-9-]*"}
   controller: App\Controller\TopicController::new
 
+reaction:
+  path: /reaction
+  requirements: {"idMessage": "[0-9]*", "type": "[0-1]"}
+  controller: App\Controller\ReactionController::index
+  methods: "POST|GET"
+
 admin.index:
   path: /admin
   controller: App\Controller\Admin\AdminController::index

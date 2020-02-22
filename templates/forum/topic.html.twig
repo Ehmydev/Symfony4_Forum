@@ -41,10 +41,6 @@
                             Le {{ topic.createdat|date("d M Y à H:i:s") }}
                             <hr>
                             {{ topic.message | raw }}
-                            <div>
-                                <button type="button" class="btn btn-success">0</button>
-                                <button type="button" class="btn btn-danger">0</button>
-                            </div>
                         </td>
                     </tr>
                 {% endif %}
@@ -56,8 +52,8 @@
                             <hr>
                             {{ msg.message|raw }}
                             <div>
-                                <button type="button" class="btn btn-success">0</button>
-                                <button type="button" class="btn btn-danger">0</button>
+                                <button type="button" id='likes{{msg.id}}' onclick='ajax({{msg.id}},1)' class="btn btn-success">{{ msg.reactions|filter(v => v.type == 1)|length }}</button>
+                                <button type="button" id='dislikes{{msg.id}}' onclick='ajax({{msg.id}},0)' class="btn btn-danger">{{ msg.reactions|filter(v => v.type == 0)|length }}</button>
                             </div>
                         </td>
                     </tr>
@@ -82,4 +78,30 @@
         </div>
     </div>
 {% endblock %}
+
+{% block javascripts %} 
+
+
+   <script language = "javascript">  
+      function ajax(idMessage, type){   
+            $.ajax({  
+               url:        '{{path('reaction')}}',  
+               type:       'POST',   
+               async:      true,  
+               data: { 'idMessage': idMessage, 'type': type},
+               
+               success: function(data) {  
+                  document.getElementById('likes'+idMessage).innerHTML = data.numberLikes;
+                  document.getElementById('dislikes'+idMessage).innerHTML = data.numberDislikes;
+                 
+               },  
+               error : function(xhr, textStatus, errorThrown) {  
+                  if(xhr.responseText == "Erreur: Le message ou l'utilisateur n'est pas bon");{
+                      alert("Vous devez être connecté pour réagir");
+                  }
+               }  
+            });  
+      } 
+   </script> 
+{% endblock %}  
 
