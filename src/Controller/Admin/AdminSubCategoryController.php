@@ -6,7 +6,7 @@ use App\Entity\SubCategory;
 use App\Form\SubCategoryType;
 use App\Repository\CategoryRepository;
 use App\Repository\SubCategoryRepository;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +18,7 @@ class AdminSubCategoryController extends AbstractController
      */
     private $repository;
     /**
-     * @var ObjectManager
+     * @var EntityManagerInterface
      */
     private $em;
     /**
@@ -30,9 +30,9 @@ class AdminSubCategoryController extends AbstractController
      * AdminSubCategoryController constructor.
      * @param CategoryRepository $categoryRepository
      * @param SubCategoryRepository $repository
-     * @param ObjectManager $em
+     * @param EntityManagerInterface $em
      */
-    public function __construct(CategoryRepository $categoryRepository, SubCategoryRepository $repository, ObjectManager $em)
+    public function __construct(CategoryRepository $categoryRepository, SubCategoryRepository $repository, EntityManagerInterface $em)
     {
         $this->repository = $repository;
         $this->em = $em;

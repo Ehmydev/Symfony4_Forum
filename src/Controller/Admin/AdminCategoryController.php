@@ -5,8 +5,8 @@ namespace App\Controller\Admin;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -17,7 +17,7 @@ class AdminCategoryController extends AbstractController
      */
     private $repository;
     /**
-     * @var ObjectManager
+     * @var EntityManagerInterface
      */
     private $em;
 
@@ -25,9 +25,9 @@ class AdminCategoryController extends AbstractController
      * AdminCategoryController constructor.
      *
      * @param CategoryRepository $repository
-     * @param ObjectManager      $em
+     * @param EntityManagerInterface      $em
      */
-    public function __construct(CategoryRepository $repository, ObjectManager $em)
+    public function __construct(CategoryRepository $repository, EntityManagerInterface $em)
     {
         $this->repository = $repository;
         $this->em = $em;

@@ -9,7 +9,7 @@ use App\Entity\User;
 use App\Form\MessageType;
 use App\Form\TopicType;
 use App\Repository\MessageRepository;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,11 +21,11 @@ class TopicController extends AbstractController
      */
     private $repository;
     /**
-     * @var ObjectManager
+     * @var EntityManagerInterface
      */
     private $manager;
 
-    public function __construct(MessageRepository $repository, ObjectManager $manager)
+    public function __construct(MessageRepository $repository, EntityManagerInterface $manager)
     {
         $this->repository = $repository;
         $this->manager = $manager;
