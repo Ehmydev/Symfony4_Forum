@@ -21,8 +21,10 @@
                 <tr>
                     <td style="width: 17%;" class="text-center">{{ app.user.login }}</td>
                     <td>
-                        <textarea placeholder="Rédiger une réponse" rows="4" class="form-control mb-3"></textarea>
-                        <button type="submit" class="btn btn-outline-info w-25">Répondre</button>
+                        {{ form_start(form) }}
+                            {{ form_widget(form) }}
+                            <button type="submit" class="btn btn-outline-info w-25">Répondre</button>
+                        {{ form_end(form) }}
                     </td>
                 </tr>
             </tbody>

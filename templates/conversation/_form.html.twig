@@ -1,4 +1,9 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-outline-primary w-50">{{ button_label|default('Save') }}</button>
+    {{ form_row(form.title) }}
+    {{ form_row(form.receiver) }}
+    {{ form_widget(form.privateMessages) }}
+    <div class="btn-group w-100">
+        <button class="btn btn-outline-primary w-50">{{ button_label|default('Save') }}</button>
+        <a class="btn btn-outline-info w-50" href="{{ path('conversation_index') }}">Retour à la liste</a>
+    </div>
 {{ form_end(form) }}

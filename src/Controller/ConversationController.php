@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Conversation;
 use App\Entity\PrivateMessage;
 use App\Form\ConversationType;
+use App\Form\PrivateMessageType;
 use App\Repository\ConversationRepository;
 use DateTime;
 use Exception;
@@ -66,14 +67,32 @@ class ConversationController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="conversation_show", methods={"GET"})
+     * @Route("/{id}", name="conversation_show", methods={"GET", "POST"})
      * @param Conversation $conversation
+     * @param Request $request
      * @return Response
+     * @throws Exception
      */
-    public function show(Conversation $conversation): Response
+    public function show(Conversation $conversation, Request $request): Response
     {
+        $pm = new PrivateMessage();
+        $pm->setAuthor($this->getUser())
+            ->setIsRead(true)
+            ->setPostedAt(new DateTime())
+            ->setConversation($conversation);
+        $form = $this->createForm(PrivateMessageType::class, $pm);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($pm);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('conversation_show', ['id' => $conversation->getId()]);
+        }
         return $this->render('conversation/show.html.twig', [
             'conversation' => $conversation,
+            'form' => $form->createView(),
         ]);
     }
 

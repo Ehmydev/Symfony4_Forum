@@ -15,6 +15,9 @@ class ReactionController extends AbstractController
 {
     /**
      * @Route("/reaction", name="reaction")
+     * @param Request $request
+     * @param ReactionRepository $reactionRepository
+     * @return JsonResponse|Response
      */
     public function index(Request $request, ReactionRepository $reactionRepository)
     {

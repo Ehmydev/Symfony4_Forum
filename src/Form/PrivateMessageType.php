@@ -13,7 +13,10 @@ class PrivateMessageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('text', TextareaType::class)
+            ->add('text', TextareaType::class, [
+                'attr' => ['rows' => 4, 'placeholder' => 'Rédiger une réponse'],
+                'label' => false,
+            ])
         ;
     }
 
