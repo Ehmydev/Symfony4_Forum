@@ -6,6 +6,10 @@ register:
   path: /register
   controller: App\Controller\RegistrationController::register
 
+search:
+  path: /search/{search}
+  controller: App\Controller\HomeController::search
+
 category:
   path: /{slug}-{id}
   requirements: {"slug": "[a-z0-9-]*"}

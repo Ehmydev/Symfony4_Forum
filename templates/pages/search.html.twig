@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Forum - {{ subcategory.name }}{% endblock %}
+{% block title %}Forum - {{ search }}{% endblock %}
 
 {% block body %}
 
@@ -22,25 +22,25 @@
                 </button>
             </div>
         {% endfor %}
-
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ path('home') }}">Accueil</a></li>
-                <li class="breadcrumb-item"><a href="{{ path('category', {id: subcategory.category.id, slug: subcategory.category.slug}) }}">{{ subcategory.category.name }}</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ subcategory.name }}</li>
+                <li class="breadcrumb-item active" aria-current="page">{{ search }}</li>
             </ol>
         </nav>
+        <div class='m-1'>
+            <input type="text" id="search" name="search" value={{ search }}>
+            <button class="btn btn-primary" onclick="search()"> Rechercher </button>
+        </div>
         <div class="pagination float-left">
             {{ knp_pagination_render(topics) }}
         </div>
-        {% if app.user %}
-            <a href="{{ path('topic.new', {id: subcategory.id, slug: subcategory.slug }) }}" class="btn btn-dark float-right mb-3">Ajouter un sujet</a>
-        {% endif %}
+
         <div class="table-responsive">
             <table class="table table-striped table-bordered">
                 <thead class="thead-dark">
                 <tr class="align-middle">
-                    <th style="max-width: 70%; min-width: 65%;"><a href="{{ path('subcategory', {id: subcategory.id, slug: subcategory.slug}) }}">{{ subcategory.name }}</a></th>
+                    <th style="max-width: 70%; min-width: 65%;">Topics</th>
                     <th class="align-middle text-center">Réponses</th>
                     <th class="align-middle text-center">Vues</th>
                     <th class="align-middle text-center">Dernier message</th>
@@ -69,4 +69,12 @@
             {{ knp_pagination_render(topics) }}
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    function search(){
+    location.href='/search/'+document.getElementById('search').value;    
+    } 
+</script>
 {% endblock %}

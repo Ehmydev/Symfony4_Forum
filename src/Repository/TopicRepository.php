@@ -21,11 +21,20 @@ class TopicRepository extends ServiceEntityRepository
         parent::__construct($registry, Topic::class);
     }
 
-    public function findBySubCategoryQuery(SubCategory $subcat, string $search = ''): Query
+    public function findBySubCategoryQuery(SubCategory $subcat): Query
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.subCategory = :subcat AND t.title LIKE :search')
+            ->andWhere('t.subCategory = :subcat')
             ->setParameter('subcat', $subcat)
+            ->orderBy('t.pin', 'DESC')
+            ->orderBy('t.created_at', 'DESC')
+            ->getQuery();
+    }
+
+    public function findByNameQuery(string $search = ''): Query
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.title LIKE :search')
             ->setParameter('search', '%'.$search.'%')
             ->orderBy('t.pin', 'DESC')
             ->orderBy('t.created_at', 'DESC')

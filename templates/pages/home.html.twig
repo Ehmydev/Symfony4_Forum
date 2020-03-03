@@ -11,6 +11,10 @@
                 <li class="breadcrumb-item active" aria-current="page">Accueil</li>
             </ol>
         </nav>
+          <div class='m-1'>
+            <input type="text" id="search" name="search" value={{ search }}>
+            <button class="btn btn-primary" onclick="search()"> Rechercher </button>
+        </div>
         <div class="table-responsive">
             {% for category in categories %}
                 <table class="table table-striped table-bordered">
@@ -43,4 +47,13 @@
             {% endfor %}
         </div>
     </div>
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+    function search(){
+    location.href='/search/'+document.getElementById('search').value;    
+    } 
+</script>
 {% endblock %}
