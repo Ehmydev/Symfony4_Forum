@@ -52,7 +52,7 @@
         {% block body %}{% endblock %}
         <footer class="bg-dark text-light">
             <div class="container">
-                <p class="text-center p-3">Copyright &copy; 2019 - Tous droits réservés</p>
+                <p class="text-center p-3 m-0">Copyright &copy; 2019 - Tous droits réservés</p>
             </div>
         </footer>
         {% block javascripts %}{% endblock %}
@@ -66,11 +66,11 @@
                 var dialogDefinition = ev.data.definition;
 
                 switch (dialogName) {
-                    case 'image': //Image Properties dialog
+                    case 'image':
                         dialogDefinition.removeContents('Link');
                         dialogDefinition.removeContents('advanced');
                         break;
-                    case 'link': //image Properties dialog
+                    case 'link':
                         dialogDefinition.removeContents('target');
                         dialogDefinition.removeContents('advanced');
                         break;
