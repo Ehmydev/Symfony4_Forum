@@ -24,6 +24,9 @@ class TopicRepository extends ServiceEntityRepository
     public function findBySubCategoryQuery(SubCategory $subcat): Query
     {
         return $this->createQueryBuilder('t')
+            ->leftJoin('t.messages', 'm')->addSelect('m')
+            ->leftJoin('t.user', 'u')->addSelect('u')
+            ->leftJoin('m.user', 'u2')->addSelect('u2')
             ->andWhere('t.subCategory = :subcat')
             ->setParameter('subcat', $subcat)
             ->orderBy('t.pin', 'DESC')
@@ -34,6 +37,9 @@ class TopicRepository extends ServiceEntityRepository
     public function findByNameQuery(string $search = ''): Query
     {
         return $this->createQueryBuilder('t')
+            ->leftJoin('t.messages', 'm')->addSelect('m')
+            ->leftJoin('t.user', 'u')->addSelect('u')
+            ->leftJoin('m.user', 'u2')->addSelect('u2')
             ->andWhere('t.title LIKE :search')
             ->setParameter('search', '%'.$search.'%')
             ->orderBy('t.pin', 'DESC')
