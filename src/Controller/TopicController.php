@@ -103,7 +103,8 @@ class TopicController extends AbstractController
         $topic = new Topic();
         $topic->setSubCategory($subCategory)
             ->setUser($user)
-            ->setCreatedAt(new \DateTime('now'));
+            ->setCreatedAt(new \DateTime('now'))
+            ->setPin(false);
         $form = $this->createForm(TopicType::class, $topic);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

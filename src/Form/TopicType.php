@@ -14,11 +14,7 @@ class TopicType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('message', CKEditorType::class, [
-                'config' => [
-                    'toolbar' => 'standard',
-                ],
-            ])
+            ->add('message', CKEditorType::class)
         ;
     }
 

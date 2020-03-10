@@ -60,7 +60,11 @@
                         </td>
                         <td class="text-center align-middle">{{ topic.messages.count }}</td>
                         <td class="text-center align-middle"></td>
-                        <td class="text-center align-middle">Par <span style="color: {{ lastMsg.user.rank.first.color }}">{{ lastMsg.user.login }}</span><br>Le {{ lastMsg.createdat|date("d M Y à H:i") }}</td>
+                        {% if lastMsg == false %}
+                            <td class="text-center align-middle">Aucun Message</td>
+                        {% else %}
+                            <td class="text-center align-middle">Par <span style="color: {{ lastMsg.user.rank.first.color }}">{{ lastMsg.user.login }}</span><br>Le {{ lastMsg.createdat|date("d M Y à H:i") }}</td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </table>

@@ -13,11 +13,7 @@ class MessageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('message', CKEditorType::class, [
-                'config' => [
-                    'toolbar' => 'standard',
-                ],
-            ])
+            ->add('message', CKEditorType::class)
         ;
     }
 

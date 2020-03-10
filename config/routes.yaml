@@ -20,11 +20,6 @@ subcategory:
   requirements: {"slug": "[a-z0-9-]*"}
   controller: App\Controller\SubCategoryController::index
 
-subcategory.search:
-  path: /subcategory/{slug}-{id}/{search}
-  requirements: {"slug": "[a-z0-9-]*", "search":"[a-z0-9-]*"}
-  controller: App\Controller\SubCategoryController::search
-
 topic:
   path: /topic/{slug}-{id}
   requirements: {"slug": "[a-z0-9-]*"}

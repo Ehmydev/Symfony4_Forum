@@ -3,3 +3,16 @@
 twig:
     form_themes:
         - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+
+fos_ck_editor:
+    default_config: global_conf
+    configs:
+        global_conf:
+            toolbar: "standard"
+    toolbars:
+        items:
+            standard.about: ['Format']
+            standard.tools: []
+            standard.document: []
+            standard.editing: []
+            standard.links: ['Link', 'Unlink']
