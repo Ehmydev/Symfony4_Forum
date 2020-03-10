@@ -24,6 +24,7 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
 
     public function load(ObjectManager $manager)
     {
+        /** @var Rank[] $ranks */
         $ranks = $manager->getRepository(Rank::class)->findAll();
 
         $user = new User();

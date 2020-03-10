@@ -29,20 +29,23 @@ class RankFixtures extends Fixture implements OrderedFixtureInterface
         $rank->setName('ROLE_USER');
         $rank->setLibRank('Utilisateur');
         $rank->setColor('blue');
+        $rank->setPermissions([]);
         $rank2 = new Rank();
         $rank2->setName('ROLE_ADMIN');
         $rank2->setLibRank('Administrateur');
         $rank2->setColor('red');
+        $rank2->setPermissions([]);
 
         $manager->persist($rank2);
         $manager->persist($rank);
 
-        for ($i = 0; $i < 5; ++$i) {
+        for ($i = 0; $i < 4; ++$i) {
             $rank = new Rank();
             $nameRank = $faker->word;
             $rank->setName('ROLE_'.strtoupper($nameRank));
             $rank->setLibRank($nameRank);
             $rank->setColor($faker->hexColor);
+            $rank->setPermissions([]);
             $manager->persist($rank);
         }
 

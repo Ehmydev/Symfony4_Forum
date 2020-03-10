@@ -38,6 +38,11 @@ class Rank
      */
     private $color;
 
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $permissions = [];
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -108,6 +113,25 @@ class Rank
     public function setColor(string $color): self
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    public function getPermissions(): ?array
+    {
+        return $this->permissions;
+    }
+
+    public function setPermissions(array $permissions): self
+    {
+        $this->permissions = $permissions;
+
+        return $this;
+    }
+
+    public function addPermission(int $permission): self
+    {
+        $this->permissions[] = $permission;
 
         return $this;
     }
